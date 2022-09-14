@@ -11,7 +11,7 @@ experimental:
   plugins:
     proxyHeaders:
       modulename: "github.com/Hvid/proxyHeaders"
-      version: "v0.0.6"
+      version: "v0.0.7"
 ```
 
 ### Dynamic
