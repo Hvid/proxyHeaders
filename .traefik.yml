@@ -1,0 +1,11 @@
+displayName: proxyHeaders
+type: middleware
+iconPath: .assets/icon.png
+
+import: github.com/Hvid/proxyHeaders
+
+summary: 'proxyHeaders'
+
+testData:
+  proxyHeaders:
+    enable: true
