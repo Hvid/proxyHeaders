@@ -11,7 +11,7 @@ experimental:
   plugins:
     proxyHeaders:
       modulename: "github.com/Hvid/proxyHeaders"
-      version: "v0.0.7"
+      version: "v0.0.8"
 ```
 
 ### Dynamic
@@ -19,6 +19,8 @@ experimental:
 ```yaml
 http:
     middlewares:
-        proxyHeaders:
-            enable: true
+      proxyheaders:
+        plugin:
+          proxyheaders:
+            Enabled: true
 ```
