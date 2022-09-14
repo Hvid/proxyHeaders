@@ -40,6 +40,7 @@ func (plugin *Plugin) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
 	ip, port = silentSplitHostPort(req.RemoteAddr)
 	req.Header.Set("REMOTE_PORT", port)
 	req.Header.Set("REMOTE_ADDR", ip)
+	req.Header.Set("REMOTE_HOST", ip)
 	plugin.next.ServeHTTP(rw, req)
 }
 
