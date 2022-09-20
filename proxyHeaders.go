@@ -38,8 +38,8 @@ func (plugin *Plugin) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
 	var ip string
 	var port string
 	ip, port = silentSplitHostPort(req.RemoteAddr)
-	req.Header.Set("TRAEFIK_SRCPORT", port)
-	req.Header.Set("TRAEFIK_SRCIP", ip)
+	req.Header.Set("TRAEFIK-SRCPORT", port)
+	req.Header.Set("TRAEFIK-SRCIP", ip)
 	plugin.next.ServeHTTP(rw, req)
 }
 

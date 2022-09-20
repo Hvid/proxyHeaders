@@ -1,6 +1,6 @@
 # proxyHeaders
 
-proxyHeaders is a middleware plugin for traefik. It forwards source IP + port to backend.
+proxyHeaders is a middleware plugin for traefik. It forwards source IP + port to backend as headers.
 
 ## Configuration
 
@@ -11,7 +11,7 @@ experimental:
   plugins:
     proxyHeaders:
       modulename: "github.com/Hvid/proxyHeaders"
-      version: "v0.0.8"
+      version: "v0.0.9"
 ```
 
 ### Dynamic
