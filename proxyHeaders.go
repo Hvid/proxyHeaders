@@ -31,15 +31,17 @@ func New(ctx context.Context, next http.Handler, config *Config, name string) (h
 }
 
 func (plugin *Plugin) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
-	if !plugin.enabled {
-		plugin.next.ServeHTTP(rw, req)
-		return
+	if req != nil {
+		if !plugin.enabled {
+			plugin.next.ServeHTTP(rw, req)
+			return
+		}
+		var ip string
+		var port string
+		ip, port = silentSplitHostPort(req.RemoteAddr)
+		req.Header.Set("TRAEFIK-SRCPORT", port)
+		req.Header.Set("TRAEFIK-SRCIP", ip)
 	}
-	var ip string
-	var port string
-	ip, port = silentSplitHostPort(req.RemoteAddr)
-	req.Header.Set("TRAEFIK-SRCPORT", port)
-	req.Header.Set("TRAEFIK-SRCIP", ip)
 	plugin.next.ServeHTTP(rw, req)
 }
 
