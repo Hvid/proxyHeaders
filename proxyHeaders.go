@@ -2,6 +2,7 @@ package proxyHeaders
 
 import (
 	"context"
+	"fmt"
 	"net"
 	"net/http"
 )
@@ -31,9 +32,11 @@ func New(ctx context.Context, next http.Handler, config *Config, name string) (h
 }
 
 func (plugin *Plugin) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
-	if req == nil {
-		return
-	}
+	defer func() {
+		if err := recover(); err != nil {
+			fmt.Println("request aborted:", req.RemoteAddr, req.URL)
+		}
+	}()
 	if !plugin.enabled {
 		plugin.next.ServeHTTP(rw, req)
 		return
@@ -43,6 +46,7 @@ func (plugin *Plugin) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
 	ip, port = silentSplitHostPort(req.RemoteAddr)
 	req.Header.Set("TRAEFIK-SRCPORT", port)
 	req.Header.Set("TRAEFIK-SRCIP", ip)
+
 	plugin.next.ServeHTTP(rw, req)
 }
 
